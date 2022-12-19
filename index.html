@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo.css">
+    <title>Document</title>
+    <script>
+
+        function setClockTime() {
+            // pega os valores do input
+            const hours = Number(document.getElementById("hoursInput").value);
+            const minutes = Number(document.getElementById("minutesInput").value);
+            const seconds = Number(document.getElementById("secondsInput").value);
+
+            // atualiza o tempo do relogio
+            document.getElementById("horas").innerHTML = hours;
+            document.getElementById("minutos").innerHTML = minutes;
+            document.getElementById("segundos").innerHTML = seconds;
+        }
+
+        //button
+        let intervalId;
+
+        function startClock() {
+            intervalId = setInterval(atualizarRelogio, 1000);
+        }
+
+        function stopClock() {
+            clearInterval(intervalId);
+        }
+
+        function resetClock() {
+            stopClock();
+            document.getElementById("horas").innerHTML = "00";
+            document.getElementById("minutos").innerHTML = "00";
+            document.getElementById("segundos").innerHTML = "00";
+        }
+
+        //relogio
+        function atualizarRelogio(){
+            var data = new Date();
+            var horas = data.getHours();
+            var minutos = data.getMinutes();
+            var segundos = data.getSeconds();
+
+            horas = (horas < 10 ? "0" : "") + horas;
+            minutos = (minutos < 10 ? "0" : "") + minutos;
+            segundos = (segundos < 10 ? "0" : "") + segundos;
+            const timeString = horas + ":" + minutos + ":" + segundos;
+
+            document.getElementById("horas").innerHTML = horas;
+            document.getElementById("minutos").innerHTML = minutos;
+            document.getElementById("segundos").innerHTML = segundos;
+        }
+
+        setInterval(atualizarRelogio, 1000);
+
+    </script>
+</head>
+<body>
+    <div>
+        <button onclick="startClock()">começar</button>
+        <button onclick="stopClock()">parar</button>
+        <button onclick="resetClock()">resetar</button>
+    </div>
+    
+    <div>
+        <input type="text" id="hoursInput" placeholder="horas">
+        <input type="text" id="minutesInput" placeholder="minutos">
+        <input type="text" id="secondsInput" placeholder="segundos">
+
+        <button onclick="setClockTime()">set time</button>
+    </div>
+
+    <div id="relogio">
+        <span id="horas"></span>
+        :
+        <span id="minutos"></span>
+        :
+        <span id="segundos"></span>
+    </div>
+    
+</body>
+</html>
